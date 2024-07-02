@@ -12,7 +12,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
 		return { searchResult: null };
 	}
 
-	// The API returns 20 results per page, so we fetch two pages at a time.
+	// The API returns 10 results per page, so we fetch
+	// two pages at a time to show 20 results per page.
 	const [first, second] = await Promise.all([
 		search(query, 2 * page),
 		search(query, 2 * page + 1),
@@ -31,7 +32,7 @@ async function search(query: string, page: number) {
 
 	const response = await fetch(url);
 	if (!response.ok) {
-		throw new Error(`Failed to fetch search results: ${response.status}`);
+		throw new Error(`Failed to fetch search results: ${response.statusText}`);
 	}
 
 	const json: unknown = await response.json();

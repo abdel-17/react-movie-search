@@ -8,25 +8,28 @@ import {
 	type InferOutput,
 } from "valibot";
 
+export const MovieSchema = pipe(
+	object({
+		imdbID: string(),
+		Title: string(),
+		Poster: string(),
+		Type: string(),
+	}),
+	transform((show) => ({
+		id: show.imdbID,
+		title: show.Title,
+		poster: show.Poster,
+		type: show.Type,
+	})),
+);
+
 const SearchResultSuccessSchema = pipe(
 	object({
-		Search: array(
-			object({
-				imdbID: string(),
-				Title: string(),
-				Poster: string(),
-				Type: string(),
-			}),
-		),
+		Search: array(MovieSchema),
 		totalResults: string(),
 	}),
 	transform((results) => ({
-		movies: results.Search.map((movie) => ({
-			id: movie.imdbID,
-			title: movie.Title,
-			poster: movie.Poster,
-			type: movie.Type,
-		})),
+		movies: results.Search,
 		totalCount: parseInt(results.totalResults, 10),
 		success: true as const,
 	})),

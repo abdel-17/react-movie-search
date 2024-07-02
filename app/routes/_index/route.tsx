@@ -59,7 +59,7 @@ function SearchForm({
 		window.clearTimeout(submitTimeout.current);
 		submitTimeout.current = window.setTimeout(() => {
 			form.current?.requestSubmit();
-		}, 300);
+		}, 500);
 		onQueryChange(event.currentTarget.value);
 	}
 
@@ -127,21 +127,39 @@ function SearchResultGrid({
 				role="list"
 				className="mx-auto grid w-fit gap-8 pt-[--spacing] sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5"
 			>
-				{searchResult.movies.map((movie) => (
-					<li key={movie.id} className="group relative">
-						<img
-							src={movie.poster}
-							alt={movie.title}
-							className="h-[300px] w-[200px]"
-						/>
-						<p
-							aria-hidden
-							className="absolute bottom-0 left-0 right-0 bg-black/80 p-2 text-center font-medium opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-						>
-							{movie.title}
-						</p>
-					</li>
-				))}
+				{searchResult.movies.map((movie) => {
+					const href = `/shows/${movie.id}`;
+					const loading =
+						navigation.state === "loading" &&
+						navigation.location.pathname === href;
+
+					return (
+						<li key={movie.id} className="group relative">
+							<Link to={href} className="relative">
+								<img
+									src={movie.poster}
+									alt={movie.title}
+									className="aspect-[2/3] w-[200px] select-none"
+								/>
+							</Link>
+							<p
+								aria-hidden
+								className="absolute bottom-0 left-0 right-0 bg-black/80 p-2 text-center font-medium opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+							>
+								{movie.title}
+							</p>
+							<div
+								aria-hidden={!loading}
+								className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/80 transition-opacity aria-hidden:opacity-0"
+							>
+								<span
+									aria-label="Loading"
+									className="loading loading-spinner size-10"
+								/>
+							</div>
+						</li>
+					);
+				})}
 			</ul>
 			<Pagination
 				query={query}
