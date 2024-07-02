@@ -1,7 +1,7 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { parse } from "valibot";
 import { OMDB_API_KEY } from "~/utils/env.server";
-import { type SearchResult, SearchResultSchema } from "./schema";
+import { SearchResultSchema, type SearchResult } from "./schema";
 
 export async function loader({ request }: LoaderFunctionArgs) {
 	const url = new URL(request.url);
