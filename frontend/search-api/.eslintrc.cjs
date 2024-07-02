@@ -48,6 +48,9 @@ module.exports = {
 					typescript: {},
 				},
 			},
+			rules: {
+				"jsx-a11y/no-redundant-roles": "off",
+			},
 		},
 
 		// Typescript

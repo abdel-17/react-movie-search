@@ -17,15 +17,27 @@ importers:
       '@remix-run/serve':
         specifier: ^2.10.0
         version: 2.10.0(typescript@5.5.2)
+      '@zag-js/pagination':
+        specifier: ^0.59.0
+        version: 0.59.0
+      '@zag-js/react':
+        specifier: ^0.59.0
+        version: 0.59.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       isbot:
         specifier: ^4.1.0
         version: 4.4.0
+      lucide-react:
+        specifier: ^0.400.0
+        version: 0.400.0(react@18.3.1)
       react:
         specifier: ^18.2.0
         version: 18.3.1
       react-dom:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
+      valibot:
+        specifier: ^0.35.0
+        version: 0.35.0
     devDependencies:
       '@remix-run/dev':
         specifier: ^2.10.0
@@ -45,6 +57,9 @@ importers:
       autoprefixer:
         specifier: ^10.4.19
         version: 10.4.19(postcss@8.4.39)
+      daisyui:
+        specifier: ^4.12.10
+        version: 4.12.10(postcss@8.4.39)
       eslint:
         specifier: ^8.38.0
         version: 8.57.0
@@ -909,6 +924,33 @@ packages:
   '@web3-storage/multipart-parser@1.0.0':
     resolution: {integrity: sha512-BEO6al7BYqcnfX15W2cnGR+Q566ACXAT9UQykORCWW80lmkpWsnEob6zJS1ZVBKsSJC8+7vJkHwlp+lXG1UCdw==}
 
+  '@zag-js/anatomy@0.59.0':
+    resolution: {integrity: sha512-AhZc6QZUmruBtnbizuxNPUp+LEvRFo+5aDRyE61WOFNbLZmRWH+VjxXGFo22+cm/+Ek/6daG+wG6lrMtKjP+Lg==}
+
+  '@zag-js/core@0.59.0':
+    resolution: {integrity: sha512-M/4AodFhmkylvHfT6vMEPKWyAZaUgMYF3uTYveEDJzMY7SNs4eZVLq31Os9kqNJN5sQLt7QBoyCdMfVJYD+f1Q==}
+
+  '@zag-js/dom-query@0.59.0':
+    resolution: {integrity: sha512-sNsIyUzNLEFp8Alk4XqC4hIV2MiDOv4XBAptP0t4b18lr9/2mvAJMJhzm/0PJF10Id1gLjVj+lYNSc9l2wGXBw==}
+
+  '@zag-js/pagination@0.59.0':
+    resolution: {integrity: sha512-QGhdJv0J4Vyj0Uinh1h0+UmaHC4+8FpkxgmfrcVaAaYZ9eS6+zfMD6WaDvQY1t4VBPNwq+Dyft0iKMZEsQdxhw==}
+
+  '@zag-js/react@0.59.0':
+    resolution: {integrity: sha512-BNAePITdYA0ITo2A6hJWPd3S/sZFnD1ILNsQmECNbJRFnNxM52b1Yfv4tDjI12qSHhyYYkJpk0DlC/eQjxVoFA==}
+    peerDependencies:
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+
+  '@zag-js/store@0.59.0':
+    resolution: {integrity: sha512-JzHCqUiKrLRQNG/KS9AGLo8/ynn2ZWUWGq/IEK8q/nSDMJ9GcwqpCmYJkF41WliRkVxenxqY4bZdVgMlm4m6LA==}
+
+  '@zag-js/types@0.59.0':
+    resolution: {integrity: sha512-PBKDtqNJLn2jqknX/0ZcT/KWEpJSmge2yBMjIsfjB77Fq4vaqldFOGLmZowX8fAFA0FpH6F2bZ0lU9TpU1iozQ==}
+
+  '@zag-js/utils@0.59.0':
+    resolution: {integrity: sha512-rj9eGenmgE1gaOQdcTHtaHa0Kzy7gzzlR1OATnQmqwpU7C+XArhyceCESbDCc3AQVNqJAHfKb5DggaXgcB2Bwg==}
+
   '@zxing/text-encoding@0.9.0':
     resolution: {integrity: sha512-U/4aVJ2mxI0aDNI8Uq0wEhMgY+u4CNtEb0om3+y3+niDAsoTCOB33UF0sxpzqzdqXLqmvc+vZyAt4O8pPdfkwA==}
 
@@ -1232,6 +1274,9 @@ packages:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
     engines: {node: '>= 8'}
 
+  css-selector-tokenizer@0.8.0:
+    resolution: {integrity: sha512-Jd6Ig3/pe62/qe5SBPTN8h8LeUg/pT4lLgtavPf7updwwHpvFzxvOQBHYj2LZDMjUnBzgvIUSjRcf6oT5HzHFg==}
+
   css-what@6.1.0:
     resolution: {integrity: sha512-HTUrgRJ7r4dsZKU6GjmpfRK1O76h97Z8MfS1G0FozR+oF2kG6Vfe8JE6zwrkbxigziPHinCJ+gCPjA9EaBDtRw==}
     engines: {node: '>= 6'}
@@ -1243,6 +1288,14 @@ packages:
 
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
+
+  culori@3.3.0:
+    resolution: {integrity: sha512-pHJg+jbuFsCjz9iclQBqyL3B2HLCBF71BwVNujUYEvCeQMvV97R59MNK3R2+jgJ3a1fcZgI9B3vYgz8lzr/BFQ==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
+  daisyui@4.12.10:
+    resolution: {integrity: sha512-jp1RAuzbHhGdXmn957Z2XsTZStXGHzFfF0FgIOZj3Wv9sH7OZgLfXTRZNfKVYxltGUOBsG1kbWAdF5SrqjebvA==}
+    engines: {node: '>=16.9.0'}
 
   damerau-levenshtein@1.0.8:
     resolution: {integrity: sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==}
@@ -1618,6 +1671,9 @@ packages:
 
   fast-levenshtein@2.0.6:
     resolution: {integrity: sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==}
+
+  fastparse@1.1.2:
+    resolution: {integrity: sha512-483XLLxTVIwWK3QTrMGRqUfUpoOs/0hbQrl2oz4J0pAcm3A3bu84wxTFqGqkJzewCLdME38xJLJAxBABfQT8sQ==}
 
   fastq@1.17.1:
     resolution: {integrity: sha512-sRVD3lWVIXWg6By68ZN7vho9a1pQcN/WBFaAAsDDFzlJjvoGx0P8z7V1t72grFJfJhu3YPZBuu25f7Kaw2jN1w==}
@@ -2112,6 +2168,10 @@ packages:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
 
+  klona@2.0.6:
+    resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
+    engines: {node: '>= 8'}
+
   language-subtag-registry@0.3.23:
     resolution: {integrity: sha512-0K65Lea881pHotoGEa5gDlMxt3pctLi2RplBb7Ezh4rRdLEOtgi7n4EwK9lamnUCkKBqaeKRVebTq6BAxSkpXQ==}
 
@@ -2179,6 +2239,11 @@ packages:
   lru-cache@7.18.3:
     resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
     engines: {node: '>=12'}
+
+  lucide-react@0.400.0:
+    resolution: {integrity: sha512-rpp7pFHh3Xd93KHixNgB0SqThMHpYNzsGUu69UaQbSZ75Q/J3m5t6EhKyMT3m4w2WOxmJ2mY0tD3vebnXqQryQ==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   markdown-extensions@1.1.1:
     resolution: {integrity: sha512-WWC0ZuMzCyDHYCasEGs4IPvLyTGftYwh6wIEOULOF0HXcqZlhwRzrK0w2VUlxWA98xnvb/jszw4ZSkJ6ADpM6Q==}
@@ -2817,6 +2882,9 @@ packages:
     resolution: {integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==}
     engines: {node: '>= 0.10'}
 
+  proxy-compare@3.0.0:
+    resolution: {integrity: sha512-y44MCkgtZUCT9tZGuE278fB7PWVf7fRYy0vbRXAts2o5F0EfC4fIQrvQQGBJo1WJbFcVLXzApOscyJuZqHQc1w==}
+
   pump@2.0.1:
     resolution: {integrity: sha512-ruPMNRkN3MHP1cWJc9OWr+T/xDP0jhXYCLfJcBuX54hhfIBnaQmAUMfDcG4DM5UMWByBbJY69QSphm3jtDKIkA==}
 
@@ -3361,6 +3429,9 @@ packages:
     resolution: {integrity: sha512-+g8ENReyr8YsOc6fv/NVJs2vFdHBnBNdfE49rshrTzDWOlUx4Gq7KOS2GD8eqhy2j+Ejq29+SbKH8yjkAqXqoA==}
     engines: {node: '>=8'}
     hasBin: true
+
+  valibot@0.35.0:
+    resolution: {integrity: sha512-+i2aCRkReTrd5KBN/dW2BrPOvFnU5LXTV2xjZnjnqUIO8YUx6P2+MgRrkwF2FhkexgyKq/NIZdPdknhHf5A/Ww==}
 
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
@@ -4414,6 +4485,42 @@ snapshots:
 
   '@web3-storage/multipart-parser@1.0.0': {}
 
+  '@zag-js/anatomy@0.59.0': {}
+
+  '@zag-js/core@0.59.0':
+    dependencies:
+      '@zag-js/store': 0.59.0
+      klona: 2.0.6
+
+  '@zag-js/dom-query@0.59.0': {}
+
+  '@zag-js/pagination@0.59.0':
+    dependencies:
+      '@zag-js/anatomy': 0.59.0
+      '@zag-js/core': 0.59.0
+      '@zag-js/dom-query': 0.59.0
+      '@zag-js/types': 0.59.0
+      '@zag-js/utils': 0.59.0
+
+  '@zag-js/react@0.59.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@zag-js/core': 0.59.0
+      '@zag-js/store': 0.59.0
+      '@zag-js/types': 0.59.0
+      proxy-compare: 3.0.0
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
+  '@zag-js/store@0.59.0':
+    dependencies:
+      proxy-compare: 3.0.0
+
+  '@zag-js/types@0.59.0':
+    dependencies:
+      csstype: 3.1.3
+
+  '@zag-js/utils@0.59.0': {}
+
   '@zxing/text-encoding@0.9.0':
     optional: true
 
@@ -4779,11 +4886,27 @@ snapshots:
       shebang-command: 2.0.0
       which: 2.0.2
 
+  css-selector-tokenizer@0.8.0:
+    dependencies:
+      cssesc: 3.0.0
+      fastparse: 1.1.2
+
   css-what@6.1.0: {}
 
   cssesc@3.0.0: {}
 
   csstype@3.1.3: {}
+
+  culori@3.3.0: {}
+
+  daisyui@4.12.10(postcss@8.4.39):
+    dependencies:
+      css-selector-tokenizer: 0.8.0
+      culori: 3.3.0
+      picocolors: 1.0.1
+      postcss-js: 4.0.1(postcss@8.4.39)
+    transitivePeerDependencies:
+      - postcss
 
   damerau-levenshtein@1.0.8: {}
 
@@ -5381,6 +5504,8 @@ snapshots:
 
   fast-levenshtein@2.0.6: {}
 
+  fastparse@1.1.2: {}
+
   fastq@1.17.1:
     dependencies:
       reusify: 1.0.4
@@ -5863,6 +5988,8 @@ snapshots:
 
   kleur@4.1.5: {}
 
+  klona@2.0.6: {}
+
   language-subtag-registry@0.3.23: {}
 
   language-tags@1.0.9:
@@ -5917,6 +6044,10 @@ snapshots:
       yallist: 3.1.1
 
   lru-cache@7.18.3: {}
+
+  lucide-react@0.400.0(react@18.3.1):
+    dependencies:
+      react: 18.3.1
 
   markdown-extensions@1.1.1: {}
 
@@ -6678,6 +6809,8 @@ snapshots:
       forwarded: 0.2.0
       ipaddr.js: 1.9.1
 
+  proxy-compare@3.0.0: {}
+
   pump@2.0.1:
     dependencies:
       end-of-stream: 1.4.4
@@ -7366,6 +7499,8 @@ snapshots:
       diff: 5.2.0
       kleur: 4.1.5
       sade: 1.8.1
+
+  valibot@0.35.0: {}
 
   validate-npm-package-license@3.0.4:
     dependencies:
