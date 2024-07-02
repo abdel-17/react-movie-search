@@ -116,7 +116,7 @@ function SearchResultGrid({
 				<p aria-hidden className="mt-4 text-center text-lg text-error">
 					{searchResult.error}
 				</p>
-				<span className="sr-only">Error: {searchResult.error}</span>
+				<span className="sr-only">{`Error: ${searchResult.error}`}</span>
 			</div>
 		);
 	}
