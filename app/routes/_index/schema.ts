@@ -1,10 +1,10 @@
 import {
+	type InferOutput,
 	array,
 	nullable,
 	number,
 	object,
 	string,
-	type InferOutput,
 } from "valibot";
 
 export const SearchResultSchema = object({

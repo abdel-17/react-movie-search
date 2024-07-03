@@ -8,10 +8,9 @@
 		"build": "remix vite:build",
 		"start": "wrangler pages dev ./build/client",
 		"deploy": "wrangler pages deploy ./build/client",
-		"lint": "biome lint .",
-		"lint:fix": "biome lint --write .",
-		"lint:fix-unsafe": "biome lint --write --unsafe .",
-		"format": "biome format --write .",
+		"check": "biome check .",
+		"check:fix": "biome check --write .",
+		"check:fix-unsafe": "biome check --write --unsafe .",
 		"typecheck": "tsc"
 	},
 	"dependencies": {
