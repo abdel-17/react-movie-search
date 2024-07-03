@@ -12,12 +12,12 @@ export default function Page() {
 				<MoviePoster path={movie.poster_path} size="original" />
 			</div>
 			<div className="max-w-xl">
-				<h1 className="text-3xl font-medium">{movie.title}</h1>
+				<h1 className="text-4xl font-medium">{movie.title}</h1>
 				<ul role="list" aria-label="Genres" className="mt-4 flex gap-2">
 					{movie.genres.map((genre) => (
 						<li
 							key={genre.name}
-							className="rounded bg-accent p-1.5 text-accent-content"
+							className="rounded bg-accent px-2 py-1 text-accent-content"
 						>
 							{genre.name}
 						</li>

@@ -32,7 +32,7 @@ export default function Index() {
 	);
 	return (
 		<main className="p-8 [--spacing:theme(spacing.10)]">
-			<h1 className="text-center text-3xl">Search for Movies &amp; TV Shows</h1>
+			<h1 className="text-center text-4xl">Search for Movies</h1>
 			<SearchForm query={query} onQueryChange={setQuery} />
 			{searchResult !== null && (
 				<SearchResultGrid searchResult={searchResult} query={query} />
