@@ -6,4 +6,4 @@ function env(name: string): string {
 	return value;
 }
 
-export const OMDB_API_KEY = env("OMDB_API_KEY");
+export const TMDB_TOKEN = env("TMDB_TOKEN");

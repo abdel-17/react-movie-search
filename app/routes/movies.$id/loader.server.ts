@@ -1,6 +1,6 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { parse } from "valibot";
-import { OMDB_API_KEY } from "~/utils/env.server";
+import { TMDB_TOKEN } from "~/utils/env.server";
 import { MovieDetailsSchema } from "./schema";
 
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -10,15 +10,14 @@ export async function loader({ params }: LoaderFunctionArgs) {
 }
 
 async function getMovie(id: string) {
-	const url = new URL("https://www.omdbapi.com/");
-	url.searchParams.set("apikey", OMDB_API_KEY);
-	url.searchParams.set("i", id);
+	const response = await fetch(`https://api.themoviedb.org/3/movie/${id}`, {
+		headers: {
+			Authorization: `Bearer ${TMDB_TOKEN}`,
+		},
+	});
 
-	const response = await fetch(url);
 	if (!response.ok) {
-		throw new Error(
-			`Failed to fetch movie with id ${id}: ${response.statusText}`,
-		);
+		throw response;
 	}
 
 	const json: unknown = await response.json();

@@ -9,37 +9,32 @@ import {
 import * as pagination from "@zag-js/pagination";
 import { normalizeProps, useMachine } from "@zag-js/react";
 import {
-	AlertCircleIcon,
 	ChevronLeftIcon,
 	ChevronRightIcon,
 	EllipsisIcon,
 	SearchIcon,
 } from "lucide-react";
 import React, { useId, useRef, useState } from "react";
+import { MoviePoster } from "~/components/MoviePoster";
 import { loader } from "./loader.server";
 import type { SearchResult } from "./schema";
 
 export { loader };
 
-export const meta: MetaFunction = () => [{ title: "Search Movies & TV Shows" }];
+export const meta: MetaFunction = () => [{ title: "Search Movies" }];
 
 export default function Index() {
 	const { searchResult } = useLoaderData<typeof loader>();
-
 	const location = useLocation();
-	const searchParams = new URLSearchParams(location.search);
-	const [query, setQuery] = useState(searchParams.get("query") ?? "");
-
+	const [query, setQuery] = useState(
+		() => new URLSearchParams(location.search).get("query") ?? "",
+	);
 	return (
 		<main className="p-8 [--spacing:theme(spacing.10)]">
 			<h1 className="text-center text-3xl">Search for Movies &amp; TV Shows</h1>
 			<SearchForm query={query} onQueryChange={setQuery} />
 			{searchResult !== null && (
-				<SearchResultGrid
-					searchResult={searchResult}
-					query={query}
-					searchParams={searchParams}
-				/>
+				<SearchResultGrid searchResult={searchResult} query={query} />
 			)}
 		</main>
 	);
@@ -87,11 +82,9 @@ function SearchForm({
 function SearchResultGrid({
 	searchResult,
 	query,
-	searchParams,
 }: {
 	searchResult: SearchResult;
 	query: string;
-	searchParams: URLSearchParams;
 }) {
 	const navigation = useNavigation();
 
@@ -106,84 +99,71 @@ function SearchResultGrid({
 		);
 	}
 
-	if (!searchResult.success) {
-		return (
-			<div className="mx-auto w-fit pt-[--spacing]">
-				<AlertCircleIcon
-					role="presentation"
-					className="mx-auto size-10 text-error"
-				/>
-				<p aria-hidden className="mt-4 text-center text-lg text-error">
-					{searchResult.error}
-				</p>
-				<span className="sr-only">{`Error: ${searchResult.error}`}</span>
-			</div>
-		);
-	}
-
 	return (
 		<>
 			<ul
 				role="list"
-				className="mx-auto grid w-fit gap-8 pt-[--spacing] sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5"
+				className="mx-auto grid w-fit gap-8 pt-[--spacing] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
 			>
-				{searchResult.movies.map((movie) => {
-					const href = `/shows/${movie.id}`;
-					const loading =
-						navigation.state === "loading" &&
-						navigation.location.pathname === href;
-
-					return (
-						<li key={movie.id} className="group relative">
-							<Link to={href} className="relative">
-								<img
-									src={movie.poster}
-									alt={movie.title}
-									className="aspect-[2/3] w-[200px] select-none"
-								/>
-							</Link>
-							<p
-								aria-hidden
-								className="absolute bottom-0 left-0 right-0 bg-black/80 p-2 text-center font-medium opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-							>
-								{movie.title}
-							</p>
-							<div
-								aria-hidden={!loading}
-								className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/80 transition-opacity aria-hidden:opacity-0"
-							>
-								<span
-									aria-label="Loading"
-									className="loading loading-spinner size-10"
-								/>
-							</div>
-						</li>
-					);
-				})}
+				{searchResult.results.map((movie) => (
+					<li key={movie.id}>
+						<MovieCard movie={movie} />
+					</li>
+				))}
 			</ul>
-			<Pagination
-				query={query}
-				searchParams={searchParams}
-				count={searchResult.totalCount}
-			/>
+			<Pagination query={query} count={searchResult.total_results} />
+			<p className="mt-10 text-center text-sm">
+				Movie data is provided by{" "}
+				<a
+					href="https://www.themoviedb.org"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="link-hover link-secondary"
+				>
+					TMDB
+				</a>
+			</p>
 		</>
 	);
 }
 
-function Pagination({
-	query,
-	searchParams,
-	count,
-}: {
-	query: string;
-	searchParams: URLSearchParams;
-	count: number;
-}) {
+function MovieCard({ movie }: { movie: SearchResult["results"][number] }) {
+	const navigation = useNavigation();
+	const href = `/movies/${movie.id}`;
+	const loading =
+		navigation.state === "loading" && navigation.location.pathname === href;
+
+	return (
+		<Link to={href} prefetch="intent" className="group relative block">
+			<div className="w-[200px]">
+				<MoviePoster path={movie.poster_path} size="w500" />
+			</div>
+			<p
+				data-placeholder={movie.poster_path === null ? true : undefined}
+				className="absolute bottom-0 left-0 right-0 bg-black/80 p-2 text-center font-medium opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100 data-[placeholder]:opacity-100"
+			>
+				{movie.title}
+			</p>
+			<div
+				data-loading={loading ? true : undefined}
+				className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/80 opacity-0 transition-opacity data-[loading]:opacity-100"
+			>
+				<span className="loading loading-spinner size-10" />
+			</div>
+		</Link>
+	);
+}
+
+function Pagination({ query, count }: { query: string; count: number }) {
 	const id = useId();
+	const location = useLocation();
 	const [state, send] = useMachine(pagination.machine({ id, count }), {
 		context: {
 			count,
-			page: parseInt(searchParams.get("page") || "1", 10),
+			page: parseInt(
+				new URLSearchParams(location.search).get("page") || "1",
+				10,
+			),
 		},
 	});
 	const api = pagination.connect(state, send, normalizeProps);

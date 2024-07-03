@@ -1,52 +1,36 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { parse } from "valibot";
-import { OMDB_API_KEY } from "~/utils/env.server";
-import { SearchResultSchema, type SearchResult } from "./schema";
+import { TMDB_TOKEN } from "~/utils/env.server";
+import { SearchResultSchema } from "./schema";
 
 export async function loader({ request }: LoaderFunctionArgs) {
 	const url = new URL(request.url);
 	const query = url.searchParams.get("query");
-	const page = parseInt(url.searchParams.get("page") || "1", 10);
+	const page = url.searchParams.get("page") || "1";
 
 	if (!query) {
 		return { searchResult: null };
 	}
 
-	// The API returns 10 results per page, so we fetch
-	// two pages at a time to show 20 results per page.
-	const [first, second] = await Promise.all([
-		search(query, 2 * page),
-		search(query, 2 * page + 1),
-	]);
-
-	return {
-		searchResult: mergeSearchResults(first, second),
-	};
+	const searchResult = await search(query, page);
+	return { searchResult };
 }
 
-async function search(query: string, page: number) {
-	const url = new URL("https://www.omdbapi.com/");
-	url.searchParams.set("apikey", OMDB_API_KEY);
-	url.searchParams.set("s", query);
-	url.searchParams.set("page", page.toString());
+async function search(query: string, page: string) {
+	const url = new URL("https://api.themoviedb.org/3/search/movie");
+	url.searchParams.set("query", query);
+	url.searchParams.set("page", page);
 
-	const response = await fetch(url);
+	const response = await fetch(url, {
+		headers: {
+			Authorization: `Bearer ${TMDB_TOKEN}`,
+		},
+	});
+
 	if (!response.ok) {
-		throw new Error(`Failed to fetch search results: ${response.statusText}`);
+		throw response;
 	}
 
 	const json: unknown = await response.json();
 	return parse(SearchResultSchema, json);
-}
-
-function mergeSearchResults(a: SearchResult, b: SearchResult): SearchResult {
-	if (!a.success || !b.success) {
-		return a;
-	}
-
-	return {
-		movies: [...a.movies, ...b.movies],
-		totalCount: Math.ceil(a.totalCount / 2),
-		success: true,
-	};
 }
