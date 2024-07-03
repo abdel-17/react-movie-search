@@ -25,7 +25,7 @@ export default function Page() {
 				<ul
 					role="list"
 					aria-label="Genres"
-					className="mt-5 flex flex-wrap gap-2"
+					className="flex flex-wrap gap-2 pt-5"
 				>
 					{movie.genres.map((genre) => (
 						<li
@@ -36,7 +36,7 @@ export default function Page() {
 						</li>
 					))}
 				</ul>
-				<p className="mt-8">{movie.overview}</p>
+				<p className="pt-8">{movie.overview}</p>
 			</div>
 		</main>
 	);
