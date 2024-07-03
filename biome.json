@@ -12,7 +12,15 @@
 			"recommended": true,
 			"a11y": {
 				"noRedundantRoles": "off"
+			},
+			"nursery": {
+				"useSortedClasses": "warn"
 			}
 		}
+	},
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
 	}
 }

@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/cloudflare";
 import {
 	Form,
 	Link,
@@ -31,7 +31,7 @@ export default function Index() {
 		() => new URLSearchParams(location.search).get("query") ?? "",
 	);
 	return (
-		<main className="p-8 [--spacing:theme(spacing.10)]">
+		<main className="p-8">
 			<h1 className="text-center text-4xl">Search for Movies</h1>
 			<SearchForm query={query} onQueryChange={setQuery} />
 			{searchResult !== null && (
@@ -60,13 +60,13 @@ function SearchForm({
 	}
 
 	return (
-		<Form ref={form} role="search" className="mx-auto w-fit pt-4">
-			<div className="relative flex items-center">
+		<Form ref={form} role="search">
+			<div className="relative mx-auto flex w-full max-w-[400px] items-center pt-4">
 				<input
 					type="text"
 					name="query"
 					aria-label="Search"
-					className="input input-bordered w-[400px] max-w-full pr-10"
+					className="input input-bordered w-full pr-10"
 					value={query}
 					onChange={debouncedSubmit}
 				/>
@@ -91,7 +91,7 @@ function SearchResultGrid({
 
 	if (navigation.state === "loading" && navigation.location.pathname === "/") {
 		return (
-			<div className="mx-auto w-fit pt-[--spacing]">
+			<div className="mx-auto w-fit pt-10">
 				<span
 					aria-label="Loading"
 					className="loading loading-spinner size-10"
@@ -101,10 +101,10 @@ function SearchResultGrid({
 	}
 
 	return (
-		<>
+		<div className="[--gap:theme(spacing.8)]">
 			<ul
 				role="list"
-				className="mx-auto grid w-fit gap-8 pt-[--spacing] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+				className="mx-auto grid w-fit gap-[--gap] pt-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
 			>
 				{searchResult.results.map((movie) => (
 					<li key={movie.id}>
@@ -124,7 +124,7 @@ function SearchResultGrid({
 					TMDB
 				</a>
 			</p>
-		</>
+		</div>
 	);
 }
 
@@ -136,12 +136,10 @@ function MovieCard({ movie }: { movie: SearchResult["results"][number] }) {
 
 	return (
 		<Link to={href} prefetch="intent" className="group relative block">
-			<div className="w-[200px]">
-				<MoviePoster path={movie.poster_path} size="w500" />
-			</div>
+			<MoviePoster path={movie.poster_path} width={200} />
 			<p
 				data-placeholder={movie.poster_path === null ? true : undefined}
-				className="absolute bottom-0 left-0 right-0 bg-black/80 p-2 text-center font-medium opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100 data-[placeholder]:opacity-100"
+				className="absolute right-0 bottom-0 left-0 bg-black/80 p-2 text-center font-medium opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100 data-[placeholder]:opacity-100"
 			>
 				{movie.title}
 			</p>
@@ -181,8 +179,8 @@ function Pagination({ query, count }: { query: string; count: number }) {
 	}
 
 	return (
-		<nav {...api.getRootProps()} className="mx-auto w-fit pt-[--spacing]">
-			<ul className="flex">
+		<nav {...api.getRootProps()} className="overflow-x-auto">
+			<ul className="mx-auto flex w-fit pt-[--gap]">
 				<li>
 					<Link
 						to={pageHref(api.previousPage ?? api.page)}
@@ -201,7 +199,7 @@ function Pagination({ query, count }: { query: string; count: number }) {
 										to={pageHref(page.value)}
 										{...api.getItemProps(page)}
 										data-active={page.value === api.page ? true : undefined}
-										className="btn btn-square rounded-none data-[active]:btn-primary data-[active]:btn-active"
+										className="btn btn-square data-[active]:btn-primary data-[active]:btn-active rounded-none"
 									>
 										{page.value}
 									</Link>

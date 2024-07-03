@@ -7,13 +7,15 @@ export { loader };
 export default function Page() {
 	const { movie } = useLoaderData<typeof loader>();
 	return (
-		<main className="flex min-h-svh flex-col items-center justify-center gap-8 p-8 sm:flex-row">
-			<div className="w-[300px]">
-				<MoviePoster path={movie.poster_path} size="original" />
-			</div>
+		<main className="flex min-h-svh flex-col items-center justify-center gap-8 p-8 lg:flex-row">
+			<MoviePoster path={movie.poster_path} width={300} />
 			<div className="max-w-xl">
-				<h1 className="text-4xl font-medium">{movie.title}</h1>
-				<ul role="list" aria-label="Genres" className="mt-4 flex gap-2">
+				<h1 className="font-medium text-4xl">{movie.title}</h1>
+				<ul
+					role="list"
+					aria-label="Genres"
+					className="mt-5 flex flex-wrap gap-2"
+				>
 					{movie.genres.map((genre) => (
 						<li
 							key={genre.name}
