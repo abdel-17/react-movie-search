@@ -16,7 +16,6 @@ export const SearchResultSchema = object({
 			poster_path: nullable(string()),
 		}),
 	),
-	total_pages: number(),
 	total_results: number(),
 });
 

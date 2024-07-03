@@ -32,7 +32,7 @@ export const meta: MetaFunction = ({ location }) => {
 	];
 };
 
-export default function Index() {
+export default function Page() {
 	const { searchResult } = useLoaderData<typeof loader>();
 	const location = useLocation();
 	const [query, setQuery] = useState(
@@ -109,10 +109,11 @@ function SearchResultGrid({
 	}
 
 	return (
-		<div className="[--gap:theme(spacing.8)]">
+		<div className="mx-auto w-fit">
+			<h2 className="pt-10 text-3xl">{searchResult.total_results} Results</h2>
 			<ul
 				role="list"
-				className="mx-auto grid w-fit gap-[--gap] pt-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+				className="grid gap-8 py-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
 			>
 				{searchResult.results.map((movie) => (
 					<li key={movie.id}>
@@ -121,7 +122,7 @@ function SearchResultGrid({
 				))}
 			</ul>
 			<Pagination query={query} count={searchResult.total_results} />
-			<p className="mt-10 text-center text-sm">
+			<p className="pt-10 text-center text-sm">
 				Movie data is provided by{" "}
 				<a
 					href="https://www.themoviedb.org"
@@ -164,15 +165,22 @@ function MovieCard({ movie }: { movie: SearchResult["results"][number] }) {
 function Pagination({ query, count }: { query: string; count: number }) {
 	const id = useId();
 	const location = useLocation();
-	const [state, send] = useMachine(pagination.machine({ id, count }), {
-		context: {
+	const [state, send] = useMachine(
+		pagination.machine({
+			id,
 			count,
-			page: Number.parseInt(
-				new URLSearchParams(location.search).get("page") || "1",
-				10,
-			),
+			pageSize: 20,
+		}),
+		{
+			context: {
+				count,
+				page: Number.parseInt(
+					new URLSearchParams(location.search).get("page") || "1",
+					10,
+				),
+			},
 		},
-	});
+	);
 	const api = pagination.connect(state, send, normalizeProps);
 
 	function pageHref(page: number) {
@@ -188,7 +196,7 @@ function Pagination({ query, count }: { query: string; count: number }) {
 
 	return (
 		<nav {...api.getRootProps()} className="overflow-x-auto">
-			<ul className="mx-auto flex w-fit pt-[--gap]">
+			<ul className="mx-auto flex w-fit">
 				<li>
 					<Link
 						to={pageHref(api.previousPage ?? api.page)}
