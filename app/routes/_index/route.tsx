@@ -14,7 +14,8 @@ import {
 	EllipsisIcon,
 	SearchIcon,
 } from "lucide-react";
-import React, { useId, useRef, useState } from "react";
+import type React from "react";
+import { useId, useRef, useState } from "react";
 import { MoviePoster } from "~/components/MoviePoster";
 import { loader } from "./loader.server";
 import type { SearchResult } from "./schema";
@@ -160,7 +161,7 @@ function Pagination({ query, count }: { query: string; count: number }) {
 	const [state, send] = useMachine(pagination.machine({ id, count }), {
 		context: {
 			count,
-			page: parseInt(
+			page: Number.parseInt(
 				new URLSearchParams(location.search).get("page") || "1",
 				10,
 			),
@@ -209,6 +210,7 @@ function Pagination({ query, count }: { query: string; count: number }) {
 						case "ellipsis":
 							return (
 								<li
+									// biome-ignore lint/suspicious/noArrayIndexKey: Using the index as key is fine here
 									key={`ellipsis-${i}`}
 									className="btn-square flex items-center justify-center rounded-none"
 								>

@@ -4,6 +4,7 @@ import { TMDB_TOKEN } from "~/utils/env.server";
 import { MovieDetailsSchema } from "./schema";
 
 export async function loader({ params }: LoaderFunctionArgs) {
+	// biome-ignore lint/style/noNonNullAssertion: `params.id` is guaranteed to exist in this route
 	const id = params.id!;
 	const movie = await getMovie(id);
 	return { movie };
