@@ -22,7 +22,15 @@ import type { SearchResult } from "./schema";
 
 export { loader };
 
-export const meta: MetaFunction = () => [{ title: "Search Movies" }];
+export const meta: MetaFunction = ({ location }) => {
+	const searchParams = new URLSearchParams(location.search);
+	const query = searchParams.get("query");
+	return [
+		{
+			title: query ? `${query} - Movie Search` : "Movie Search",
+		},
+	];
+};
 
 export default function Index() {
 	const { searchResult } = useLoaderData<typeof loader>();
