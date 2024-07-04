@@ -68,8 +68,8 @@ function SearchForm({
 	}
 
 	return (
-		<Form ref={form} role="search">
-			<div className="relative mx-auto flex w-full max-w-[400px] items-center pt-4">
+		<Form ref={form} role="search" className="pt-4">
+			<div className="relative mx-auto flex w-full max-w-[400px] items-center">
 				<input
 					type="text"
 					name="query"
@@ -110,19 +110,17 @@ function SearchResultGrid({
 
 	return (
 		<>
-			<div className="mx-auto w-fit pt-10 [--spacing:theme(spacing.8)]">
-				<ul
-					role="list"
-					className="grid gap-[--spacing] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-				>
-					{searchResult.results.map((movie) => (
-						<li key={movie.id}>
-							<MovieCard movie={movie} />
-						</li>
-					))}
-				</ul>
-				<Pagination query={query} count={searchResult.total_results} />
-			</div>
+			<ul
+				role="list"
+				className="mx-auto grid w-fit gap-8 pt-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+			>
+				{searchResult.results.map((movie) => (
+					<li key={movie.id}>
+						<MovieCard movie={movie} />
+					</li>
+				))}
+			</ul>
+			<Pagination query={query} count={searchResult.total_results} />
 			<p className="pt-10 text-center text-sm">
 				Movie data is provided by{" "}
 				<a
@@ -196,8 +194,8 @@ function Pagination({ query, count }: { query: string; count: number }) {
 	}
 
 	return (
-		<nav {...api.getRootProps()} className="overflow-x-auto">
-			<ul className="mx-auto flex w-fit pt-[--spacing]">
+		<nav {...api.getRootProps()} className="overflow-x-auto pt-8">
+			<ul className="flex w-fit first:ml-auto last:mr-auto">
 				<li>
 					<Link
 						to={pageHref(api.previousPage ?? api.page)}
@@ -227,7 +225,7 @@ function Pagination({ query, count }: { query: string; count: number }) {
 								<li
 									// biome-ignore lint/suspicious/noArrayIndexKey: Using the index as key is fine here
 									key={`ellipsis-${i}`}
-									className="btn-square flex items-center justify-center rounded-none"
+									className="btn-square flex shrink-0 items-center justify-center rounded-none"
 								>
 									<span {...api.getEllipsisProps({ index: i })}>
 										<EllipsisIcon />
