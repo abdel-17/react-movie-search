@@ -5,6 +5,7 @@ import {
 	useLoaderData,
 	useLocation,
 	useNavigation,
+	useSubmit,
 } from "@remix-run/react";
 import * as pagination from "@zag-js/pagination";
 import { normalizeProps, useMachine } from "@zag-js/react";
@@ -56,19 +57,24 @@ function SearchForm({
 	query: string;
 	onQueryChange: (query: string) => void;
 }) {
-	const submitTimeout = useRef<number | undefined>();
+	const autoSubmitTimeout = useRef<number | undefined>();
 	const form = useRef<HTMLFormElement>(null);
+	const submit = useSubmit();
 
 	function debouncedSubmit(event: React.ChangeEvent<HTMLInputElement>) {
-		window.clearTimeout(submitTimeout.current);
-		submitTimeout.current = window.setTimeout(() => {
-			form.current?.requestSubmit();
+		window.clearTimeout(autoSubmitTimeout.current);
+		autoSubmitTimeout.current = window.setTimeout(() => {
+			submit(form.current);
 		}, 500);
 		onQueryChange(event.currentTarget.value);
 	}
 
+	function cancelAutoSubmit() {
+		window.clearTimeout(autoSubmitTimeout.current);
+	}
+
 	return (
-		<Form ref={form} role="search" className="pt-4">
+		<Form ref={form} role="search" className="pt-4" onSubmit={cancelAutoSubmit}>
 			<div className="relative mx-auto flex w-full max-w-[400px] items-center">
 				<input
 					type="text"
