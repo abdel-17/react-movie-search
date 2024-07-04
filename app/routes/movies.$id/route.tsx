@@ -12,6 +12,10 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 		{
 			title: `${title} - Movie`,
 		},
+		{
+			name: "description",
+			content: data?.movie.overview,
+		},
 	];
 };
 
