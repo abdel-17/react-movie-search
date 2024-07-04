@@ -109,19 +109,20 @@ function SearchResultGrid({
 	}
 
 	return (
-		<div className="mx-auto w-fit">
-			<h2 className="pt-10 text-3xl">{searchResult.total_results} Results</h2>
-			<ul
-				role="list"
-				className="grid gap-8 py-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-			>
-				{searchResult.results.map((movie) => (
-					<li key={movie.id}>
-						<MovieCard movie={movie} />
-					</li>
-				))}
-			</ul>
-			<Pagination query={query} count={searchResult.total_results} />
+		<>
+			<div className="mx-auto w-fit pt-10 [--spacing:theme(spacing.8)]">
+				<ul
+					role="list"
+					className="grid gap-[--spacing] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+				>
+					{searchResult.results.map((movie) => (
+						<li key={movie.id}>
+							<MovieCard movie={movie} />
+						</li>
+					))}
+				</ul>
+				<Pagination query={query} count={searchResult.total_results} />
+			</div>
 			<p className="pt-10 text-center text-sm">
 				Movie data is provided by{" "}
 				<a
@@ -133,7 +134,7 @@ function SearchResultGrid({
 					TMDB
 				</a>
 			</p>
-		</div>
+		</>
 	);
 }
 
@@ -196,7 +197,7 @@ function Pagination({ query, count }: { query: string; count: number }) {
 
 	return (
 		<nav {...api.getRootProps()} className="overflow-x-auto">
-			<ul className="mx-auto flex w-fit">
+			<ul className="mx-auto flex w-fit pt-[--spacing]">
 				<li>
 					<Link
 						to={pageHref(api.previousPage ?? api.page)}
